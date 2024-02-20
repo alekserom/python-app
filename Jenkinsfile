@@ -5,7 +5,7 @@ node('built-in'){
     }
     stage("check SAST"){
         script {
-           def scannerHome = tool 'sonarqube';
+           def scannerHome = tool 'sonar';
                withSonarQubeEnv("sonarqube-container") {
                sh "${tool("sonarqube")}/bin/sonar-scanner \
                   -Dsonar.projectKey=my-test:my-app \
