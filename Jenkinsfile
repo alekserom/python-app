@@ -12,7 +12,6 @@ node('built-in'){
                 -Dsonar.token=${token}"
         }
     }
-    }
     stage("Compilation app"){
         sh"""pyinstaller --add-data "templates/profile.html:." --add-data "templates/vulnerable.html:." --add-data "templates:templates/"  sql-injection.py"""
     }
