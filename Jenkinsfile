@@ -4,12 +4,12 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
-        withCredentials([string(credentialsId: 'sonar-token', variable: 'token')]) {
+        {
             sh "sonar-scanner \
-                -Dsonar.projectKey=my-python-app \
-                -Dsonar.sources=. \
-                -Dsonar.host.url=http://192.168.1.6:9000 \
-                -Dsonar.token=${token}"
+                  -Dsonar.projectKey=my-test:my-app \
+                  -Dsonar.sources=. \
+                  -Dsonar.host.url=http://localhost:9000 \
+                  -Dsonar.token=sqp_2464b6a9be1304fc5f391157d91343dee77bdfd0"
         }
     }
     stage("Compilation app"){
