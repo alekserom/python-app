@@ -1,7 +1,7 @@
 node("master"){
     cleanWs()
     stage("Download source code"){
-        git credentialsId: 'git-ssh', url: 'git@github.com:roma512/python-app.git'
+        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
         withCredentials([string(credentialsId: 'sonar-token', variable: 'token')]) {
