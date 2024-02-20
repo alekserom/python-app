@@ -6,7 +6,8 @@ node('built-in'){
     stage("check SAST"){
          def scannerHome = tool 'sonar';
             withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner"
+              sh "${scannerHome}/bin/sonar-scanner \
+                -Dsonar.sources=. \"
     }
     }
     stage("Compilation app"){
