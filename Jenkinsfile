@@ -1,7 +1,7 @@
-pipline{
+node('built-in'){
     cleanWs()
     stage("Download source code"){
-        git 'https://github.com/alekserom/python-app'
+       git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
         withCredentials([string(credentialsId: 'sonar-token', variable: 'token')]) {
