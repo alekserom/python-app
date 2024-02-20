@@ -4,7 +4,7 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
-         def scannerHome = tool 'SonarScanner';
+         def scannerHome = tool 'sonar';
             withSonarQubeEnv() {
               sh "${scannerHome}/bin/sonar-scanner"
     }
