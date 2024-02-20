@@ -21,11 +21,11 @@ node('built-in'){
     }
     stage("Registry login"){
         withCredentials([usernamePassword(credentialsId: 'nexus-cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
-            sh "docker login -u ${user} -p ${pass} registry.local:9001"
+            sh "docker login -u ${user} -p ${pass} localhost:9001"
         }
     }
     stage("Push image in registry"){
-        sh "docker push http://localhost:8081/repository/docker-local/python-app:01.000.00"
+        sh "docker push localhost:9001/docker-local/python-app:01.000.00"
         sh "docker system prune -a"
     }
     cleanWs()
