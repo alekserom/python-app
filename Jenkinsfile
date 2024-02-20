@@ -13,6 +13,7 @@ node('built-in'){
                   -Dsonar.host.url=http://localhost:9000 \
                   -Dsonar.token=sqp_2464b6a9be1304fc5f391157d91343dee77bdfd0"
                }
+        }
     }
     stage("Compilation app"){
         sh"""pyinstaller --add-data "templates/profile.html:." --add-data "templates/vulnerable.html:." --add-data "templates:templates/"  sql-injection.py"""
