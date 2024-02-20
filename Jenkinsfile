@@ -4,10 +4,13 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
-         def scannerHome = tool 'sonar';
-            withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner \
-                -Dsonar.sources=. "
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'token')]) {
+            sh "sonar-scanner \
+                -Dsonar.projectKey=my-python-app \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.token=${token}"
+        }
     }
     }
     stage("Compilation app"){
