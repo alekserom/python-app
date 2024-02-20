@@ -7,7 +7,7 @@ node('built-in'){
          def scannerHome = tool 'sonar';
             withSonarQubeEnv() {
               sh "${scannerHome}/bin/sonar-scanner \
-                -Dsonar.sources=. \"
+                -Dsonar.sources=. "
     }
     }
     stage("Compilation app"){
