@@ -17,7 +17,7 @@ node('built-in'){
         sh "docker build -t python-app ."
     }
     stage("Tag image"){
-        sh "docker tag python-app registry.local:9001/docker-local/python-app:01.000.00"
+        sh "docker tag python-app localhost:9001/docker-local/python-app:01.000.00"
     }
     stage("Registry login"){
         withCredentials([usernamePassword(credentialsId: 'nexus-cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
