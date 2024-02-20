@@ -4,13 +4,12 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
-        withCredentials([string(credentialsId: 'sonar-token', variable: 'token')]) {
             sh "sonar-scanner \
                 -Dsonar.projectKey=my-python-app \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=${token}"
-        }
+                -Dsonar.token='sqp_8c3738957ec44ccf8a6e480c55a2304585d358f6'"
+        
     }
     stage("Compilation app"){
         sh"""pyinstaller --add-data "templates/profile.html:." --add-data "templates/vulnerable.html:." --add-data "templates:templates/"  sql-injection.py"""
