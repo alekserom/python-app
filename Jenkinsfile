@@ -4,13 +4,15 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("check SAST"){
-        
-            sh "sonar-scanner \
+        script {
+           def scannerHome = tool 'sonarqube';
+               withSonarQubeEnv("sonarqube-container") {
+               sh "${tool("sonarqube")}/bin/sonar-scanner \
                   -Dsonar.projectKey=my-test:my-app \
                   -Dsonar.sources=. \
                   -Dsonar.host.url=http://localhost:9000 \
                   -Dsonar.token=sqp_2464b6a9be1304fc5f391157d91343dee77bdfd0"
-        
+               }
     }
     stage("Compilation app"){
         sh"""pyinstaller --add-data "templates/profile.html:." --add-data "templates/vulnerable.html:." --add-data "templates:templates/"  sql-injection.py"""
