@@ -25,7 +25,7 @@ node('built-in'){
         }
     }
     stage("Push image in registry"){
-        sh "docker push registry.local:9001/docker-local/python-app:01.000.00"
+        sh "docker push http://localhost:8081/repository/docker-local/python-app:01.000.00"
         sh "docker system prune -a"
     }
     cleanWs()
