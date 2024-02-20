@@ -5,7 +5,7 @@ node('built-in'){
     }
     stage("check SAST"){
             sh "sonar-scanner \
-                -Dsonar.projectKey=my-python-app \
+                -Dsonar.projectKey=my-test:my-app \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://localhost:9000 \
                 -Dsonar.token='sqp_8c3738957ec44ccf8a6e480c55a2304585d358f6'"
