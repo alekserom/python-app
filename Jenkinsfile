@@ -1,4 +1,4 @@
-node("master"){
+pipline{
     cleanWs()
     stage("Download source code"){
         git 'https://github.com/alekserom/python-app'
