@@ -28,5 +28,8 @@ node('built-in'){
         sh "docker push localhost:9001/docker-local/python-app:01.000.00"
         sh "docker system prune -a"
     }
+    stage("Deploy in kubernetes"){
+        sh "helm upgrade --install python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
+    }
     cleanWs()
 }
