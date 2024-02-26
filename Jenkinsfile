@@ -3,34 +3,8 @@ node('built-in'){
     stage("Download source code"){
        git 'https://github.com/alekserom/python-app'
     }
-    stage("check SAST"){
-        def scannerHome = tool 'sonar';
-            withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner"
-    }
-        
-    }
-    stage("Compilation app"){
-        sh"""pyinstaller --add-data "templates/profile.html:." --add-data "templates/vulnerable.html:." --add-data "templates:templates/"  sql-injection.py"""
-    }
-    stage("Build image"){
-        sh "docker build -t python-app ."
-    }
-    stage("Tag image"){
-        sh "docker tag python-app localhost:9001/docker-local/python-app:01.000.00"
-    }
-    stage("Registry login"){
-        withCredentials([usernamePassword(credentialsId: 'nexus-cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
-            sh "docker login -u ${user} -p ${pass} localhost:9001"
-        }
-    }
-    stage("Push image in registry"){
-        sh "docker push localhost:9001/docker-local/python-app:01.000.00"
-        sh "docker system prune -a"
-    }
     stage("Deploy in kubernetes"){
-        sh "ls -a"
-        sh "sudo helm upgrade --install /home/alex/python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
+        sh "sudo helm upgrade --install python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
     }
     cleanWs()
 }
