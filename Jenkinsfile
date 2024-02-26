@@ -30,7 +30,7 @@ node('built-in'){
     }
     stage("Deploy in kubernetes"){
         sh "ls -a"
-        sh "helm upgrade --install /home/alex/python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
+        sh "sudo helm upgrade --install /home/alex/python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
     }
     cleanWs()
 }
