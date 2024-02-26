@@ -4,7 +4,7 @@ node('built-in'){
        git 'https://github.com/alekserom/python-app'
     }
     stage("Deploy in kubernetes"){
-        sh "sudo helm upgrade --install python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
+        sh "helm upgrade --install python-app . --kube-insecure-skip-tls-verify --kube-apiserver=https://localhost:8443 --debug --kubeconfig=/home/alex/cert/config.json --wait"
     }
     cleanWs()
 }
